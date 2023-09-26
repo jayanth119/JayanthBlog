@@ -1,0 +1,200 @@
+<!DOCTYPE html >
+<html >
+<head>
+<title>SVD </title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="icon" href="https://jayanth119.github.io/JayanthBlog/assets/imgs/data-science.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="https://jayanth119.github.io/JayanthBlog/assets/css/style2.css" media="screen" />
+</head>
+<body>
+<style>
+  p{
+    font-size: 15px;
+    line-height: 2;
+
+  }
+</style>
+<div id="top">
+  <div class="content">
+    <div id="menu">
+      <ul>
+        <li><a class="current" href="https://jayanth119.github.io/JayanthBlog/index.html"><span>HOME</span></a></li>
+        <li><a href="https://jayanth119.github.io/JayanthBlog/about/Jayanth.html"><span>CONTACT</span></a></li>
+      </ul>
+    </div>
+    <h1><a href="https://jayanth119.github.io/JayanthBlog/index.html">SVD</a></h1>
+    <h2>Jayanth</h2>
+  </div>
+</div>
+<div class="content">
+    <div class="right_side">
+      <div class="pad">
+        <h3>Categories:</h3>
+        <ul>
+          <li><a class="current" href="https://jayanth119.github.io/JayanthBlog/index.html">Home</a></li>
+          <li><a href="https://jayanth119.github.io/JayanthBlog/Datascience/ds.html">Datascience</a></li>
+          <li><a href="https://jayanth119.github.io/JayanthBlog/Math/Math.html">Math</a></li>
+          <li><a href="https://jayanth119.github.io/JayanthBlog/Extras/Extras.html">Common Sense</a></li>
+          <!-- <li><a href="#">Photoshop</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">sNews</a></li> -->
+        </ul>
+        <h3>FACT</h3>
+        <p>This is my Second   BLOG </p>
+        <h3>MY HANDLES </h3>
+        <p>
+          <a href="https://www.instagram.com/1_j_a_y_a_n_t_h_1_1_9/">INSTA</a> 
+          <br>
+            <a href="https://www.facebook.com/jayanth.ch.7161">FB</a> 
+          <br>
+          <a href="https://www.linkedin.com/in/jayanth-ch-374550253/">LINKDIN</a> 
+          <br>
+          <a href="https://www.instagram.com/1_j_a_y_a_n_t_h_1_1_9/">GITHUB</a> 
+          <br>
+          <a href="https://www.instagram.com/1_j_a_y_a_n_t_h_1_1_9/">GMAIL</a> 
+
+        </p>
+        <h3>APPLICATION OF SVD </h3>
+        <p>1,Image Compression <br>
+          2,DimensionalityReduction<br>
+          3,etc ... 
+        </p>
+        <h3>QUOTE</h3>
+        <p> "Sometimes you gotta run before you can walk." - Tony Stark</p>
+      </div>
+    </div>
+    <div id="left_side">
+      <div class="intro">
+        <div class="pad"><p> SVD, also known as Singular Value Decomposition, is one of my favorite mathematical concepts. When I started exploring this concept, I was amazed and came to appreciate the beauty of mathematics. In this following blog, I want to provide a clear explanation of SVD from both mathematical and programming perspectives. I have a clear understanding of SVD, and I will clarify any doubts and explore ideas beyond Singular Value Decomposition</p><br />
+          <p> prequesities :</p>
+          <a href="https://en.wikipedia.org/wiki/Linear_algebra"> #linear algebra </a>&nbsp; | &nbsp;<a href="https://en.wikipedia.org/wiki/Data_analysis"> #data analysis </a>&nbsp; | &nbsp;  <a href="https://en.wikipedia.org/wiki/Machine_learning"> #machine learning  </a></div>
+      </div>
+      <div class="mpart">
+        <h2>Introduction</h2>
+        <h3>Posted on September , 2023 in <a href="https://jayanth119.github.io/JayanthBlog/index.html">JayanthBlog</a></h3>
+        
+        <p>I don't know how to start, but I'll start. Many of us had the idea that math was boring, but it actually isn't. In the beginning of my math journey, I wondered why we use math in all fields like science, physics, and economics. After exploring linear algebra , quadratic programming and optimization problem  , I realized that I had missed a lot of things, and my perspective on math completely changed. Coming to today's topic, SVD, also known as Singular Value Decomposition (SVD), is a mathematical technique used for factorizing a matrix into three simpler matrices. Actually, it is singular, and we have to express the matrix as a product of three values, but it's okay; we can express it like this. First, let's discuss some of the math concepts and also express them in the form of SVD.</p>
+        <p>Before we dive into the topic, do you have a basic understanding of linear transformations? Let's forget about the calculations for now and focus solely on the geometrical intuition. Imagine you have a piece of paper with a drawing on it. A linear transformation is akin to taking that piece of paper and stretching it, squashing it, or flipping it around, but without tearing or folding it. As a result, the drawing on the paper changes its shape, but it remains fundamentally the same drawing. This is what we refer to as a linear transformation, like giving the drawing a magical makeover</p>
+        <pre> consider a matrix  A =[ 3 , 1 ]
+                       [ 4 , 5 ]
+    (x, y ) in the form of (3x+y , 4x+5y)
+    (1,0) => (3,4)
+    (0,1) => (1,5)
+    (-1,0) =>(-3,-4)
+    (0,-1) => (-1 ,-5)
+    applied a magical process and obtained new coordinates (x, y) transformed into the form (3x + y, 4x + 5y).
+    Now, let's substitute the following points: (1, 0), (0, 1), (-1, 0), and (0, -1), 
+    and then plot them on a graph to observe the transformation.
+        </pre>
+        <img src="https://jayanth119.github.io/JayanthBlog/assets/imgs/lineartrans.png" alt="">
+        <p>Conclusion: Even though you place a small point at (1, 0), it transforms the circle into an ellipse. This is the beauty of linear algebra.</p>
+        <p>SVD factorizes A into three matrices:
+          U: An m x m orthogonal matrix (U^T * U = I), where U^T represents the transpose of U. 
+          Σ (Sigma): An m x n diagonal matrix with non-negative real numbers on the diagonal. These diagonal values are called singular values and are arranged in descending order. 
+          V^T (the transpose of V): An n x n orthogonal matrix (V^T * V = I) . 
+          <br>
+               A = U * Σ * V^T
+          <br>
+          Before Singular Value Decomposition (SVD), there is another concept used to transform square matrices called eigen-decomposition. However, eigen-decomposition has some limitations, which is why SVD is used. SVD can be applied to any m×n matrix.
+
+In SVD, a matrix is transformed into three matrices: U, Σ, and V^T. To explain these terms from last to first, V^T is an orthogonal matrix that you can think of as responsible for rotation, Σ is for scaling, and U is also involved in rotation.
+
+That's it; this is a simple explanation of SVD. Don't worry about the calculation part; we are not mathematicians; we are programmers. So, I'll take a simple matrix and demonstrate how to transform it into the three SVD matrices
+        
+        </p>
+        <pre> consider a matrix  A =[ -4 , -7 ]
+                       [ 1 , 4 ]
+    A*A^T = [65 , -32]
+            [-32 , 17]
+    it is simply matrix and it transpose multiplication 
+    and calculate characterstic equation we get  λ^2 -82λ + 81 = 0 
+    eigen values λ = 1, 81 
+    eigen vector λ1 (1) = [0.5 , 1]2X1 
+    eigen vector λ2 (81) = [-2 , 1]2X1
+    normalize the eigen vector by magnitute we get 
+    eigen vector λ1 (1) = [0.447 , 0.894]2X1 
+    eigen vector λ2 (81) = [-0.894 , 0.447]2X1
+    U = [0.447 , 0.894]
+        [-0.894 , 0.447] 2x2
+    Σ =  [9 , 0]
+         [0 , 1] # square of eigen vector 
+    V^T = According to the Grahm-Schmidt orthogonalization process we get 
+        = [0.447 , -0.895]
+          [0.894 , 0.447]
+    I think your mind is now full of calculations, so I generally don't prefer this method.
+    Actually, programmers are lazy, so we like to reuse code efficiently.
+    Another fellow programmer has developed some functions..
+ 
+</pre>
+        <p> Here a code sample in Python  </p>
+        <ol class="code">
+          <li class="t0"> import numpy as np </li>
+          <li class="t0"><code>A = [[-4 , -7] , [1, 4]]</code></li>
+          <li class="t0"><code>U, S, VT = np.linalg.svd(A) #function for svd in python </code></li>
+          <li class="t0"><code>print(U)</code></li>
+          <li class="t0"><code>print(S)</code></li>
+          <li class="t0"><code>print(VT)</code></li>
+        </ol>
+        <pre>its matter of 2 lines  </pre> 
+        <p> I think I've covered the mathematical aspect of SVD. Now, let's move on to programming and explore image compression. Let's get started.
+        </p>
+        <p> Here a code for compression of images in python  </p>
+        Original Image  
+        <img src="https://jayanth119.github.io/JayanthBlog/assets/imgs/svd1.png" alt="">
+        <ol class="code">
+          <li class="to">#import dependencies </li>
+          <li class="t0">import numpy as np</li>
+          <li class="t0"><code>from numpy.linalg import svd</code></li>
+          <li class="t0"><code>import matplotlib.pyplot as plt</code></li>
+          <li class="t0"><code>from matplotlib.pyplot import imshow</code></li>
+          </ol>
+          In the previous example, I used NumPy for mathematical operations and Matplotlib to display images. 
+          Now, I am going to define a function that will take a matrix as input...
+          <ol class="code">
+          <li class="t0"><code>vmin = 0  #for white </code></li>
+          <li class="t0"><code>vmax = 1 #for black</code></li>
+          <li class="t0"><code>image_bias = 1 # sometimes 1 </code></li>
+          <li class="t0"><code>def plot_svd(A): </code></li>
+          <li class="t0"><code>    n = len(A) </code></li>
+          <li class="t0"><code>    imshow(image_bias-A, cmap='gray', vmin=vmin, vmax=vmax) </code></li>
+          <li class="t0"><code>    plt.show() </code></li>
+          <li class="t0"><code>    U, S, V = svd(A) </code></li>
+          </ol> 
+          <ol class="code">
+          <li class="t0"><code>    imgs = [] </code></li>
+          <li class="t0"><code>    for i in range(n): </code></li>
+          <li class="t0"><code>        imgs.append(S[i]*np.outer(U[:,i],V[i])) </code></li>
+          <li class="t0"><code> </code></li>
+          <li class="t0"><code>    combined_imgs = [] </code></li>
+          <li class="t0"><code>    for i in range(n): </code></li>
+          <li class="t0"><code>        img = sum(imgs[:i+1]) </code></li>
+          <li class="t0"><code>        combined_imgs.append(img) </code></li>
+          <li class="t0"><code>    fig, axes = plt.subplots(figsize = (n*n,n), nrows = 1, ncols = n, sharex=True, sharey=True) </code></li>
+        </ol>
+        Images of all eigenvalue of an images  
+        <img src="https://jayanth119.github.io/JayanthBlog/assets/imgs/svd2.png" alt=""> <br>
+        <br>
+        <ol class="code">
+          <li class="t0"><code>    for num, ax in zip(range(n), axes): </code></li>
+          <li class="t0"><code>        ax.imshow(image_bias-imgs[num], cmap='gray', vmin=vmin, vmax=vmax) </code></li>
+          <li class="t0"><code>        ax.set_title(np.round(S[num],2), fontsize=80) </code></li>
+          <li class="t0"><code>    plt.show() </code></li>
+          <li class="t0"><code>     </code></li>
+          <li class="t0"><code>    fig, axes = plt.subplots(figsize = (n*n,n), nrows = 1, ncols = n, sharex=True, sharey=True) </code></li>
+          <li class="t0"><code>    for num, ax in zip(range(n), axes): </code></li>
+          <li class="t0"><code>        ax.imshow(image_bias-combined_imgs[num], cmap='gray', vmin=vmin, vmax=vmax) </code></li>
+          <li class="t0"><code>    plt.show() </code></li>
+        </ol>
+        Compression of an image at each stage by adding all the eigenvectors of the image can result in a clearer image.
+        <img src="https://jayanth119.github.io/JayanthBlog/assets/imgs/svd3.png" alt="">  <br>
+          <div id="left_side">
+            <div class="intro">
+              <div class="pad"><br />
+                <p>Singular Value Decomposition (SVD) has numerous real-life applications across various fields. I hope you, the reader, find this blog enjoyable </p>
+        
+                <a href="https://jayanth119.github.io/JayanthBlog/index.html">See you soon follow my social media handles for blog updates  </a>&nbsp; | &nbsp;<a href="#"></a> signing off  BOI BOI  </div>
+            </div>
+
+</div> 
+</body>
+</html>

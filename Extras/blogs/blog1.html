@@ -1,0 +1,123 @@
+<!DOCTYPE html >
+<html >
+<head>
+<title>Socket</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="icon" href="https://jayanth119.github.io/JayanthBlog/assets/imgs/data-science.png" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="https://jayanth119.github.io/JayanthBlog/assets/css/style2.css" media="screen" />
+</head>
+<body>
+<style>
+  p{
+    font-size: 15px;
+    line-height: 2;
+
+  }
+</style>
+<div id="top">
+  <div class="content">
+    <div id="menu">
+      <ul>
+        <li><a class="current" href="https://jayanth119.github.io/JayanthBlog/index.html"><span>HOME</span></a></li>
+        <li><a href="https://jayanth119.github.io/JayanthBlog/about/Jayanth.html"><span>CONTACT</span></a></li>
+      </ul>
+    </div>
+    <h1><a href="https://jayanth119.github.io/JayanthBlog/index.html">Socket Programming 1.01</a></h1>
+    <h2>Jayanth</h2>
+  </div>
+</div>
+<div class="content">
+    <div class="right_side">
+      <div class="pad">
+        <h3>Categories:</h3>
+        <ul>
+          <li><a class="current" href="https://jayanth119.github.io/JayanthBlog/index.html">Home</a></li>
+          <li><a href="https://jayanth119.github.io/JayanthBlog/Datascience/ds.html">Datascience</a></li>
+          <li><a href="https://jayanth119.github.io/JayanthBlog/Math/Math.html">Math</a></li>
+          <li><a href="https://jayanth119.github.io/JayanthBlog/Extras/Extras.html">Common Sense</a></li>
+          <!-- <li><a href="#">Photoshop</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">sNews</a></li> -->
+        </ul>
+        <h3>FACT</h3>
+        <p>This is my THIRD BLOG </p>
+        <h3>MY HANDLES </h3>
+        <p>
+          <a href="https://www.instagram.com/1_j_a_y_a_n_t_h_1_1_9/">INSTA</a> 
+          <br>
+            <a href="https://www.facebook.com/jayanth.ch.7161">FB</a> 
+          <br>
+          <a href="https://www.linkedin.com/in/jayanth-ch-374550253/">LINKDIN</a> 
+          <br>
+          <a href="https://www.instagram.com/1_j_a_y_a_n_t_h_1_1_9/">GITHUB</a> 
+          <br>
+          <a href="https://www.instagram.com/1_j_a_y_a_n_t_h_1_1_9/">GMAIL</a> 
+
+        </p>
+        <h3>COMPANIES KNOWN  </h3>
+        <p> Mini Militia , Gaming Industry , Telecommunications Companies , IoT Companies , Google ,Facebook etc ... </p>
+        <h3>QUOTE</h3>
+        <p> "I can't do everything. But I can do this ." - SpiderMan aka PeterParker </p>
+      </div>
+    </div>
+    <div id="left_side">
+      <div class="intro">
+        <div class="pad"><p> In the 10.5th class (it's halfway through the 10th grade), I had a doubt about how the Mini Militia game could support multiplayer options, where more than two people can communicate and play simultaneously. At that time, I decided to do some Google searches.
+
+          The search results pointed me to 'sockets.' I was intrigued but lacked an understanding of what sockets were. Sockets seemed related to Networking Basics, Operating System Knowledge, IP Addresses, and Ports. I felt like I was in the dark.
+          
+          Months later, I gained some basic knowledge about computer networks and fundamental concepts. These topics are vast and can feel overwhelming, akin to knowing just a teaspoon of saltwater from the ocean.
+          
+          Now, I want to write a series of blog posts about socket programming and its basic applicationsl Let's dive into the ocean of this teaspoon-sized topic :)         <p> prequesities :</p>
+          <a href="https://en.wikipedia.org/wiki/Programming Language"> #Programming Language </a>&nbsp; | &nbsp;<a href="https://en.wikipedia.org/wiki/ComputerNetwork"> #ComputerNetwork  </a>&nbsp; | &nbsp;  <a href="https://en.wikipedia.org/wiki/Socket Types"> #Socket Types  </a></div>
+      </div>
+      <div class="mpart">
+        <h2>Introduction</h2>
+        <h3>Posted on September , 2023 in <a href="https://jayanth119.github.io/JayanthBlog/index.html">JayanthBlog</a></h3>
+        <p>  
+          Sockets, in the context of computer networks, can be thought of as virtual connectors or communication channels that facilitate communication between different programs or applications running on separate computers. They function much like the plugs and sockets used to connect electronic devices in the real world.
+
+          Sockets in computer networks serve as connectors that can act both as clients and servers. They are always open and ready to establish connections with other systems while also actively waiting to receive connection requests
+        </p>
+        <p>
+          We will now delve into the basics of the internet. In computer networking, a port number is a 16-bit unsigned integer, ranging from 0 to 65535. It is used to identify specific processes or services running on a device, typically a computer, within a network. Port numbers play a crucial role in the Transport Layer of the Internet Protocol Suite, specifically in the Transmission Control Protocol (TCP) and the User Datagram Protocol (UDP).
+
+          In this blog, I will discuss the applications of TCP. This discussion involves two distinct fields: the server-side and the client-side        </p>
+        <p>
+          Creating a basic chat application between a server and a client using sockets in Python involves setting up a server that listens for incoming connections and a client that connects to the server. Here's  using Python's socket module for both the server and client
+        </p>
+        <b>SERVER.py</b>
+        <ol class="code">
+          <li class="t0">import socket </li>
+          <li class="t0">import threading </li>
+        </ol> 
+        these modules are used to demonistrate the sockets 
+        <b>SETUP IN PORTNUMBER AND IP  ADDRESS</b>
+        <ol class="code">
+          <li class="t0">HOST = '127.0.0.1'  # localhost </li>
+          <li class="t0">PORT = 12345</li>
+        </ol> 
+        for demonistration purpose i will use local host and make sure you select unused portnumber
+        <b>CLIENT.py</b>
+        <b>SETUP IN PORTNUMBER AND IP  ADDRESS</b>
+        <ol class="code">
+          <li class="t0">SERVER_HOST = '127.0.0.1'  # localhost</li>
+          <li class="t0">SERVER_PORT = 12345</li>
+        </ol> 
+        for demonistration purpose i will use local host and make sure you enter server ip address
+        <p>
+          if you want know more about the please make sure you check my <a href="https://jayanth119.github.io/JayanthBlog/index.html">GITHUB</a>
+
+        </p>
+        <B>IT IS NOT ROCKET SCIENCE IT IS SOME DEMO PURPOSE </B>
+
+
+          <div id="left_side">
+            <div class="intro">
+              <div class="pad">
+                This is not the only blog related to sockets; it's the beginning of a series of blogs. In this 'Common Sense' section, I will share my opinions on various issues and some interesting topics
+                            <a href="https://jayanth119.github.io/JayanthBlog/index.html">See you soon follow my social media handles for blog updates  </a>&nbsp; | &nbsp;<a href="#"></a>  BOI BOI  </div>
+            </div>
+        
+</body>
+</html>
