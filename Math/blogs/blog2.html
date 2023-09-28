@@ -1,0 +1,203 @@
+<!DOCTYPE html >
+<html>
+  <head>
+    <title>Fractal </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="icon"
+      href="https://jayanth119.github.io/JayanthBlog/assets/imgs/data-science.png"
+      type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+      href="https://jayanth119.github.io/JayanthBlog/assets/css/style2.css"
+      media="screen" />
+  </head>
+  <body>
+    <style>
+  p{
+    font-size: 15px;
+    line-height: 2;
+
+  }
+</style>
+    <div id="top">
+      <div class="content">
+        <div id="menu">
+          <ul>
+            <li><a class="current"
+                href="https://jayanth119.github.io/JayanthBlog/index.html"><span>HOME</span></a></li>
+            <li><a
+                href="https://jayanth119.github.io/JayanthBlog/about/Jayanth.html"><span>CONTACT</span></a></li>
+          </ul>
+        </div>
+        <h1><a href="https://jayanth119.github.io/JayanthBlog/index.html">From
+            Newton to Newton Fractal part-1</a></h1>
+        <h2>Jayanth</h2>
+      </div>
+    </div>
+    <div class="content">
+      <div class="right_side">
+        <div class="pad">
+          <h3>Categories:</h3>
+          <ul>
+            <li><a class="current"
+                href="https://jayanth119.github.io/JayanthBlog/index.html">Home</a></li>
+            <li><a
+                href="https://jayanth119.github.io/JayanthBlog/Datascience/ds.html">Datascience</a></li>
+            <li><a
+                href="https://jayanth119.github.io/JayanthBlog/Math/Math.html">Math</a></li>
+            <li><a
+                href="https://jayanth119.github.io/JayanthBlog/Extras/Extras.html">Common
+                Sense</a></li>
+            <!-- <li><a href="#">Photoshop</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">sNews</a></li> -->
+          </ul>
+          <h3>FACT</h3>
+          <p>This is my Fourth Blog </p>
+          <h3>MY HANDLES </h3>
+          <p>
+            <a href="https://www.instagram.com/1_j_a_y_a_n_t_h_1_1_9/">INSTA</a>
+            <br>
+            <a href="https://www.facebook.com/jayanth.ch.7161">FB</a>
+            <br>
+            <a href="https://www.linkedin.com/in/jayanth-ch-374550253/">LINKDIN</a>
+            <br>
+            <a href="https://www.instagram.com/1_j_a_y_a_n_t_h_1_1_9/">GITHUB</a>
+            <br>
+            <a href="https://www.instagram.com/1_j_a_y_a_n_t_h_1_1_9/">GMAIL</a>
+
+          </p>
+          <h3>Application of Raphson </h3>
+          <p>1 To solve complex equation <br>
+            2 Text Rendering <br>
+            3,etc ...
+          </p>
+          <h3>QUOTE</h3>
+          <p> "Sometimes you gotta run before you can walk." - Tony Stark</p>
+        </div>
+      </div>
+      <div id="left_side">
+        <div class="intro">
+          <div class="pad"><p> It has been nearly 20 days since our last blog
+              post due to some technical issues, but fear not! We are back, and
+              this time, we're diving deep into the world of Newton-Raphson. If
+              you're an engineering student, you're probably familiar with those
+              nerve-wracking exams where you're handed an equation and tasked
+              with finding its solutions using the Newton-Raphson method.
+              However, in the hustle and bustle of exam stress, we often
+              overlook the true beauty that lies within the Newton-Raphson
+              method. In this blog, we're on a journey to rediscover the
+              elegance of Newton-Raphson. We'll not only grasp the mechanics but
+              also uncover the hidden allure of this numerical technique. So,
+              get ready to feel the passion and excitement that Newton-Raphson
+              brings, as we explore one of the most captivating topics in the
+              world of mathematics and engineering. Let's embark on this
+              enlightening journey together! </p><br />
+            <p> prequesities :</p>
+            <a href="https://en.wikipedia.org/wiki/Linear_algebra"> #Linear
+              algebra </a>&nbsp; | &nbsp;<a
+              href="https://en.wikipedia.org/wiki/python"> #Python </a>&nbsp; |
+            &nbsp; <a href="https://en.wikipedia.org/wiki/NumPy"> #Numpy </a></div>
+        </div>
+        <div class="mpart">
+          <h2>Introduction</h2>
+          <h3>Posted on September , 2023 in <a
+              href="https://jayanth119.github.io/JayanthBlog/index.html">JayanthBlog</a></h3>
+
+          <p>When it comes to text rendering and sketching, achieving clear and
+            smooth curves is paramount. To attain this level of precision, the
+            use of polynomials is essential. Let's consider a scenario: imagine
+            you open MS Paint and attempt to draw a curve. The initial result
+            may not resemble a perfect curve, but beneath the surface, there's
+            intricate mathematics at play.
+
+            Polynomials, in particular, play a crucial role in this process.
+            They provide a mathematical framework for defining and rendering
+            curves with precision and clarity. These mathematical expressions
+            allow us to generate curves that appear smooth to the human eye,
+            creating text and drawings that are aesthetically pleasing and easy
+            to read or interpret.
+
+            In essence, polynomials serve as the mathematical backbone, helping
+            us translate our creative intentions into visual representations
+            that are far more precise and refined than what we can achieve with
+            simple hand-drawn lines. </p>
+          <p>Other:-</p>
+          <img src="https://jayanth119.github.io/JayanthBlog/assets/imgs/curve-1.png" alt
+            srcset>
+          <p>POV :- Math and CS </p>
+          <img src="https://jayanth119.github.io/JayanthBlog/assets/imgs/curve-2.png" alt
+            srcset>
+          <h3>Newton Method</h3>
+          <p>The Newton Method is a powerful numerical technique primarily
+            employed for approximating the roots of real-valued functions. I won't
+            delve into the details of the Newton Method's process since you are
+            already familiar with its main steps:</p>
+          <ol>
+            <li>Start with an initial point.</li>
+            <li>Calculate the derivative at the initial point.</li>
+            <li> Perform a linear extrapolation.</li>
+            <li> Repeat steps 2 and 3 until the difference is less than 0.2.</li>
+          </ol>
+          <p>These fundamental steps constitute the core of the Newton Method's
+            procedure, allowing us to iteratively hone in on the roots of a
+            function with increasing accuracy."</p>
+          <video controls autoplay>
+            <source src="https://jayanth119.github.io/JayanthBlog/assets/imgs/newton.mp4"
+              type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <p>Sample code :)</p>
+          <ol class="code">
+          <li class="t0"><code>from math import *
+            </code></li>
+          <li class="t0"><code>import time
+            </code></li>
+          <li class="t0"><code>def der(x): #derivative 
+            </code></li>
+          <li class="t0"><code>    c = 2*x #optional you can also sympy 
+            </code></li>
+          <li class="t0"><code> return c
+            </code></li>
+          <li class="t0"><code>def func(x): #evalute 
+            </code></li>
+          <li class="t0"><code> d = x**2 - 4
+            </code></li>
+          <li class="t0"><code> return d
+            </code></li>
+          <li class="t0"><code>x =0.5
+            </code></li>
+          <li class="t0"><code>c = time.time()
+            </code></li>
+          <li class="t0"><code>for i in range(20):
+            </code></li>
+          <li class="t0"><code> iter_start_time = time.time()
+            </code></li>
+          <li class="t0"><code> print("as",x)
+            </code></li>
+          <li class="t0"><code> x = x-(func(x)/der(x))
+            </code></li>
+          <li class="t0"><code> iter_end_time = time.time()
+            </code></li>
+          <li class="t0"><code> iter_time = iter_end_time - iter_start_time #updatefunction 
+            </code></li>
+          <li class="t0"><code> print(f"Iteration {i+1} took {iter_time:.6f}
+              seconds\n ")
+            </code></li>
+          <li class="t0"><code>d = time.time()
+            </code></li>
+          </ol>
+          <div id="left_side">
+            <div class="intro">
+              <div class="pad"><br />
+                <p> The code provided above serves as a simple demonstration, meant for explanatory purposes. In future posts, we will delve into more intricate aspects of this fascinating topic, exploring its most captivating facets.
+
+                  Stay tuned for the upcoming segments of this blog series, where we will uncover the truly intriguing and captivating aspects of the subject. Your journey into the beauty of this topic has only just begun!   </p>
+
+                <a href="https://jayanth119.github.io/JayanthBlog/index.html">See
+                  you soon follow my social media handles for blog updates </a>&nbsp;
+                | &nbsp;<a href="#"></a> signing off BOI BOI </div>
+            </div>
+
+          </div>
+        </body>
+      </html>
