@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://github.com/jayanth119/JayanthBlog2/raw/master/static/imgs/data-science.png" type="image/png">
+
+  <title>Jayanth's Blogs </title>
+  <style>
+    .cookie-notification {
+      display: none; /* Hide notification by default */
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .cookie-notification.show {
+      display: block; /* Display notification if cookie not accepted */
+    }
+    .cookie-notification .dismiss {
+      float: right;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="cookie-notification" id="cookieNotification">
+    <span>Third-party cookies are required for this application to function properly.</span>
+    <a href="#" class="dismiss" onclick="acceptCookies()">✕</a>
+    <div>Learn how to enable third-party cookies <a href="#" onclick="openBrowserSettings()">here</a>.</div>
+  </div>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script>
+    function acceptCookies() {
+      // Set a cookie to indicate that the user has accepted cookies
+      document.cookie = "cookiesAccepted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+      document.getElementById('cookieNotification').style.display = 'none'; // Hide the notification
+
+      // If the user accepts cookies, you can proceed with allowing third-party APIs.
+      // For demonstration purposes, let's just alert that third-party APIs are now enabled.
+      alert("Third-party APIs are now enabled!");
+    }
+
+    function openBrowserSettings() {
+      alert("To enable third-party cookies:\n1. Open your browser settings.\n2. Navigate to the cookies or privacy settings.\n3. Enable third-party cookies.\n4. Refresh this page after enabling cookies.");
+    }
+
+    // Check if the user has accepted cookies
+    window.onload = function() {
+      if (!cookiesAccepted()) {
+        document.getElementById('cookieNotification').classList.add('show'); // Show the notification
+      } else {
+        // If cookies are already accepted, you can proceed with allowing third-party APIs.
+        // For demonstration purposes, let's just alert that third-party APIs are already enabled.
+        alert("Third-party APIs are already enabled!");
+      }
+    };
+
+    // Function to check if the user has accepted cookies
+    function cookiesAccepted() {
+      return document.cookie.includes("cookiesAccepted=true");
+    }
+</script>
+
+</body>
+</html>
