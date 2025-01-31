@@ -55,7 +55,7 @@ export default function Home() {
     <div className='flex flex-col gap-6 items-center'>
       <h2 className='text-2xl font-semibold text-center'>Recent Posts</h2>
       <div className='flex flex-wrap justify-center gap-4'>
-        {posts.map((post) => (
+        {posts.slice(0,6).map((post) => (
           <PostCard key={post._id} post={post} />
         ))}
       </div>

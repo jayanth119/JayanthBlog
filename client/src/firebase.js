@@ -6,13 +6,15 @@ import { initializeApp } from 'firebase/app';
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: "samo-fbfbd.firebaseapp.com",
-  projectId: "samo-fbfbd",
-  storageBucket: "samo-fbfbd.appspot.com",
-  messagingSenderId: "540846526395",
-  appId: "1:540846526395:web:9e65427d723afa84a8fe9e"
+  apiKey: "AIzaSyADNeYvI3YAzDmDL5WefembCkhTvQk1lFg",
+  authDomain: "notifications-6c560.firebaseapp.com",
+  projectId: "notifications-6c560",
+  storageBucket: "notifications-6c560.firebasestorage.app",
+  messagingSenderId: "787514268475",
+  appId: "1:787514268475:web:3cc70a1b7a4f1e10d3b51e"
 };
+
+
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
