@@ -20,6 +20,7 @@ import Education from './components/Education';
 import ExperiencePage from './pages/Experiencepage';
 import ProjectPage from './pages/Projectpage';
 import NotFound from './pages/pageunderconstruction';
+import AddEducation from './pages/addeducation';
 const Layout = () => {
   return (
     <>
@@ -47,7 +48,9 @@ export default function App() {
           </Route>
           <Route element={<OnlyAdminPrivateRoute />}>
             <Route path='/create-post' element={<CreatePost />} />
-            <Route path='/update-post/:postId' element={<UpdatePost />} />
+            <Route path='/update-post/:postId' element={<UpdatePost />} />  
+            <Route path='/add-education' element={<AddEducation />} />
+            
           </Route>
           <Route path='/projects' element={<Projects />} />
           <Route path='/post/:postSlug' element={<PostPage />} />

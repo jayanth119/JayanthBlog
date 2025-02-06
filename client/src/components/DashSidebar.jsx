@@ -6,6 +6,12 @@ import {
   HiOutlineUserGroup,
   HiAnnotation,
   HiChartPie,
+  HiAcademicCap,
+  HiFingerPrint,
+  HiEye , 
+  HiCode ,
+  HiLibrary , 
+  HiCake
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -45,9 +51,9 @@ export default function DashSidebar() {
       <Sidebar.Items>
         <Sidebar.ItemGroup className='flex flex-col gap-1'>
           {currentUser && currentUser.isAdmin && (
-            <Link to='/dashboard?tab=dash'>
+            <Link to='/dashboard?tab=add-education'>
               <Sidebar.Item
-                active={tab === 'dash' || !tab}
+                active={tab === 'add-education' || !tab}
                 icon={HiChartPie}
                 as='div'
               >
@@ -98,6 +104,72 @@ export default function DashSidebar() {
                 </Sidebar.Item>
               </Link>
             </>
+          )}
+          {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=education'>
+              <Sidebar.Item
+                active={tab === 'education' || !tab}
+                icon={HiAcademicCap}
+                as='div'
+              >
+                Education
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=skills'>
+              <Sidebar.Item
+                active={tab === 'skills' || !tab}
+                icon={HiFingerPrint}
+                as='div'
+              >
+                Skills
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=experience'>
+              <Sidebar.Item
+                active={tab === 'experience' || !tab}
+                icon={HiLibrary}
+                as='div'
+              >
+                Experience
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=projects'>
+              <Sidebar.Item
+                active={tab === 'projects' || !tab}
+                icon={HiCode}
+                as='div'
+              >
+                Projects
+              </Sidebar.Item>
+            </Link>
+          )}
+              {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=inbox'>
+              <Sidebar.Item
+                active={tab === 'inbox' || !tab}
+                icon={HiEye}
+                as='div'
+              >
+                Inbox
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=ai'>
+              <Sidebar.Item
+                active={tab === 'ai' || !tab}
+                icon={HiCake}
+                as='div'
+              >
+                AI Blog
+              </Sidebar.Item>
+            </Link>
           )}
           <Sidebar.Item
             icon={HiArrowSmRight}
