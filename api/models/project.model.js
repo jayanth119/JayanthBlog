@@ -25,16 +25,20 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    links : [{
-        text: {
+    
+    github: {
             type: String,
             required: true
         },
-        href: {
+    image: {
             type: String,
             required: true
+        },
+        tags : {
+            type : [String],
+            
         }
-    }]
+ 
 }) ; 
 
 const project =mongoose.model('Project', projectSchema);

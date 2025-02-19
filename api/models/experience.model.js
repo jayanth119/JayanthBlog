@@ -27,6 +27,10 @@ const exprerienceSchema  = new mongoose.Schema({
     tags : {
         type : [String],
         required: true
+    },
+    date :{
+        type: String,
+        required: true
     }
 });
 

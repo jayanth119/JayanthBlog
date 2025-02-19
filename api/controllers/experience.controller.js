@@ -1,5 +1,5 @@
-import Experience from "../models/experience.model";
-import { errorHandler } from '../utils/error';
+import Experience from '../models/experience.model.js';
+import { errorHandler } from '../utils/error.js';
 
 // createExperience,
 // deleteExperience,
@@ -18,15 +18,15 @@ import { errorHandler } from '../utils/error';
 //     tags: ["TensorFlow", "PyTorch", "NLP", "Computer Vision"],
 //   }
 export const createExperience = async (req, res, next) => {
-    if (!req.user.isAdmin) {
-        return next(errorHandler(403, 'You are not allowed to create an experience'));
-    }
+    // if (!req.user.isAdmin) {
+    //     return next(errorHandler(403, 'You are not allowed to create an experience'));
+    // }
     if (!req.body.title || !req.body.company || !req.body.date || !req.body.description || !req.body.tags) {
         return next(errorHandler(400, 'Please provide all required fields'));
     }
     const newExperience = new Experience({
         ...req.body,
-        userId: req.user.id,
+        // userId: req.user.id,
     });
     try {
         const savedExperience = await newExperience.save();
@@ -37,9 +37,9 @@ export const createExperience = async (req, res, next) => {
 }
 
 export const deleteExperience = async (req, res, next) => {
-    if (!req.user.isAdmin) {
-        return next(errorHandler(403, 'You are not allowed to delete an experience'));
-    }
+    // if (!req.user.isAdmin) {
+    //     return next(errorHandler(403, 'You are not allowed to delete an experience'));
+    // }
     try {
         await Experience.findByIdAndDelete(req.params.experienceId);
         res.status(204).end();
@@ -49,9 +49,9 @@ export const deleteExperience = async (req, res, next) => {
 }
 
 export const editExperience = async (req, res, next) => {
-    if (!req.user.isAdmin) {
-        return next(errorHandler(403, 'You are not allowed to edit an experience'));
-    }
+    // if (!req.user.isAdmin) {
+    //     return next(errorHandler(403, 'You are not allowed to edit an experience'));
+    // }
     try {
         const updatedExperience = await Experience.findByIdAndUpdate(req.params.experienceId, req.body, {
             new: true,

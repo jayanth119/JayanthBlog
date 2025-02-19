@@ -9,7 +9,9 @@ import {
 
 const router = express.Router();
 
-router.post('education/create', verifyToken, createEducation);
-router.put('/editEducation/:educationId', verifyToken, editEducation);
-router.delete('/deleteEducation/:educationId', verifyToken, deleteEducation);
-router.get('/getEducations', verifyToken, getEducations);
+router.post('/education/create', createEducation);
+router.put('/editEducation/:educationId', editEducation);
+router.delete('/deleteEducation/:educationId', deleteEducation);
+router.get('/getEducations', getEducations);
+
+export default router;

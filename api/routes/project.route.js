@@ -9,7 +9,9 @@ import {
 
 const router = express.Router();
 
-router.post('project/create', verifyToken, createProject);
-router.put('/editProject/:projectId', verifyToken, editProject);
-router.delete('/deleteProject/:projectId', verifyToken, deleteProject);
-router.get('/getProjects', verifyToken, getProjects);
+router.post('/project/create', createProject);
+router.put('/editProject/:projectId', editProject);
+router.delete('/deleteProject/:projectId', deleteProject);
+router.get('/getProjects', getProjects);
+
+export default router;
