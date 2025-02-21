@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Skills  from "../models/skills.model.js";
 import { errorHandler } from "../utils/error.js";
 // createSkill,
@@ -36,10 +37,16 @@ export const deleteSkills = async (req, res, next) => {
     //     return next(errorHandler(403, 'You are not allowed to delete an Skills'));
     // }
     try {
-        await Skills.findByIdAndDelete(req.params.SkillsId);
-        res.status(204).end();
+        const { id } = req.params;
+        const deletedSkill = await Skills.findByIdAndDelete(new mongoose.Types.ObjectId(id));
+
+        if (!deletedSkill) {
+            return res.status(404).json({ message: "Skill not found" });
+        }
+
+        res.status(200).json({ message: "Skill deleted successfully" });
     } catch (error) {
-        next(error);
+        res.status(500).json({ message: "Error deleting skill", error });
     }
 }
 
@@ -48,7 +55,8 @@ export const editSkills = async (req, res, next) => {
     //     return next(errorHandler(403, 'You are not allowed to edit an Skills'));
     // }
     try {
-        const updatedSkills = await Skills.findByIdAndUpdate(req.params.SkillsId, req.body, {
+        const { id } = req.params;
+        const updatedSkills = await Skills.findByIdAndUpdate( new mongoose.Types.ObjectId(id), req.body, {
             new: true,
             runValidators: true,
         });

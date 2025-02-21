@@ -1,5 +1,6 @@
 import React from "react";
 import ProjectCard from "../components/ProjectCard";
+import { useState , useEffect } from "react";
 
 const projects = [
   {
@@ -35,6 +36,14 @@ const projects = [
 ];
 
 const ProjectPage = () => {
+  const [project, setProject] = useState([]);
+  useEffect(() => {
+    fetch("/api/getProjects")
+      .then((res) => res.json())
+      .then((project) => setProject(project))
+      .catch((err) => console.error("Error fetching project:", err));
+  }
+  , []);
   return (
     <div className="min-h-screen bg-[#0D1117] text-white p-8">
       {/* Page Header */}
@@ -42,7 +51,7 @@ const ProjectPage = () => {
 
       {/* Project Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
+        {project.map((project, index) => (
           <ProjectCard key={index} project={project} />
         ))}
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect , useState } from "react";
 import ExperienceCard from "../components/ExperienceCard";
 
 const experiences = [
@@ -48,6 +49,15 @@ const experiences = [
 ];
 
 const ExperiencePage = () => {
+  const [experience, setExperience] = useState([]);
+  useEffect(() => {
+    fetch("/api/getExperiences")
+      .then((res) => res.json())
+      .then((experience) => setExperience(experience))
+      .catch((err) => console.error("Error fetching experience:", err));
+  }
+  , []);
+   
   return (
     <section className="bg-[#0D1117] text-white py-16 min-h-screen">
       <div className="container mx-auto px-6">
@@ -56,7 +66,7 @@ const ExperiencePage = () => {
         </h2>
         <div className="relative border-l-4 border-gray-700 pl-6 space-y-10">
 
-          {experiences.map((experience, index) => (
+          {experience.map((experience, index) => (
             <><div className="absolute left-[-28px] bg-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold">
                   {index + 1}
               </div><ExperienceCard key={index} {...experience} /></>

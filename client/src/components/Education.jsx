@@ -1,33 +1,42 @@
 import React from "react";
-
-const educationData = [
-    {
-        title: "B.Tech",
-        institution: "IIIT Nuzvid",
-        duration: "Dec 2022 - May 2026",
-        details: "CGPA - 8.2",
-      } , 
-  {
-    title: "Pre University ",
-    institution: "IIIT Nuzvid",
-    duration: "Jan 2020 - Sept 2022",
-    details: "CGPA - 9.8",
-  },
-  {
-    title: "High School",
-    institution: "ZPHS Gajuwaka",
-    duration: "Jun 2019 - Jan 2020",
-    details: "CGPA - 9.8",
-  },
-];
+import { useState , useEffect } from "react";
+// const educationData = [
+//     {
+//         title: "B.Tech",
+//         institution: "IIIT Nuzvid",
+//         duration: "Dec 2022 - May 2026",
+//         details: "CGPA - 8.2",
+//       } , 
+//   {
+//     title: "Pre University ",
+//     institution: "IIIT Nuzvid",
+//     duration: "Jan 2020 - Sept 2022",
+//     details: "CGPA - 9.8",
+//   },
+//   {
+//     title: "High School",
+//     institution: "ZPHS Gajuwaka",
+//     duration: "Jun 2019 - Jan 2020",
+//     details: "CGPA - 9.8",
+//   },
+// ];
 
 const Education = () => {
+  const [education, setEducation] = useState([]);
+  useEffect(() => {
+    fetch("/api/getEducations")
+      .then((res) => res.json())
+      .then((data) => setEducation(data))
+      .catch((err) => console.error("Error fetching education:", err));
+  }
+  , []);
+
   return (
     <div className="bg-black text-white min-h-screen flex flex-col items-center py-10">
       <h2 className="text-3xl font-bold mb-8">Education</h2>
       <div className="relative w-3/4 lg:w-1/2">
         <div className="absolute left-1/2 w-1 bg-blue-500 h-full transform -translate-x-1/2"></div>
-        {educationData.map((edu, index) => (
+        {education.map((edu, index) => (
           <div
             key={index}
             className={`relative flex items-center mb-8 ${

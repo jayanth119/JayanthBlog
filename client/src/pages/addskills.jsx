@@ -1,153 +1,142 @@
 import { useState, useEffect } from "react";
 
 export default function AddSkills() {
-  const [categories, setCategories] = useState([]);
-  const [categoryTitle, setCategoryTitle] = useState("Frontend Development");
-  const [skillTitle, setSkillTitle] = useState("");
-  const [icon, setIcon] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+    const [skills, setSkills] = useState([]);
+    const [formData, setFormData] = useState({ title: "", items: [] });
+    const [editingId, setEditingId] = useState(null);
+    const [itemTitle, setItemTitle] = useState("");
+    const [itemIcon, setItemIcon] = useState("");
 
-  useEffect(() => {
-    async function fetchSkills() {
-      try {
-        const res = await fetch("/api/getSkills");
-        if (!res.ok) throw new Error("Failed to fetch skills");
-        const data = await res.json();
-        setCategories(Array.isArray(data) ? data : []);
-      } catch (err) {
-        setError("Failed to load skills");
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchSkills();
-  }, []);
+    // Fetch skills from backend
+    useEffect(() => {
+        fetch('/api/getSkills')
+            .then((res) => res.json())
+            .then((data) => setSkills(data))
+            .catch((err) => console.error("Error fetching skills:", err));
+    }, []);
 
-  const handleAddSkill = () => {
-    if (!skillTitle.trim() || !icon.trim()) return;
+    // Handle form input changes
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-    setCategories((prev) => {
-      const updatedCategories = prev.map((cat) =>
-        cat.title === categoryTitle
-          ? { ...cat, items: [...cat.items, { title: skillTitle, icon }] }
-          : cat
-      );
+    // Handle adding skill items
+    const addItem = () => {
+        if (itemTitle.trim() && itemIcon.trim()) {
+            setFormData({ ...formData, items: [...formData.items, { title: itemTitle, icon: itemIcon }] });
+            setItemTitle("");
+            setItemIcon("");
+        }
+    };
 
-      if (!updatedCategories.some((cat) => cat.title === categoryTitle)) {
-        updatedCategories.push({ title: categoryTitle, items: [{ title: skillTitle, icon }] });
-      }
+    // Handle deleting a skill item
+    const deleteItem = (index) => {
+        setFormData({ ...formData, items: formData.items.filter((_, i) => i !== index) });
+    };
 
-      return updatedCategories;
-    });
+    // Handle adding/updating a skill
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newSkill = { ...formData };
 
-    setSkillTitle("");
-    setIcon("");
-  };
+        if (editingId) {
+            fetch(`/api/editSkill/${editingId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newSkill),
+            })
+                .then((res) => res.json())
+                .then((updatedSkill) => {
+                    setSkills(skills.map((s) => (s._id === editingId ? updatedSkill : s)));
+                    setEditingId(null);
+                })
+                .catch((err) => console.error("Error updating skill:", err));
+        } else {
+            fetch('/api/skill/create', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newSkill),
+            })
+                .then((res) => res.json())
+                .then((newSkill) => setSkills([...skills, newSkill]))
+                .catch((err) => console.error("Error adding skill:", err));
+        }
 
-  const handleDeleteSkill = (categoryIndex, skillIndex) => {
-    setCategories((prev) =>
-      prev.map((cat, index) =>
-        index === categoryIndex
-          ? { ...cat, items: cat.items.filter((_, i) => i !== skillIndex) }
-          : cat
-      )
+        setFormData({ title: "", items: [] });
+    };
+
+    // Handle deleting a skill
+  const handleDelete = (id) => {
+    fetch(`/api/deleteSkill/${id}`, { method: "DELETE" })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Failed to delete skill");
+            }
+            setSkills((prevSkills) => prevSkills.filter((s) => s._id !== id));
+        })
+        .catch((err) => console.error("Error deleting skill:", err));
+};
+
+  
+
+    // Handle editing a skill
+    const handleEdit = (skill) => {
+        setFormData({ ...skill });
+        setEditingId(skill._id);
+    };
+
+    return (
+        <div className="min-h-screen flex flex-col p-4">
+            <div className="flex-1 p-4">
+                <h2 className="text-2xl font-bold">{editingId ? "Edit Skill" : "Add Skill"}</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <input type="text" name="title" placeholder="Skill Category" value={formData.title} onChange={handleChange} className="w-full p-2 border rounded text-black" required />
+                    
+                    <div className="flex gap-2">
+                        <input type="text" placeholder="Skill Name" value={itemTitle} onChange={(e) => setItemTitle(e.target.value)} className="p-2 border rounded text-black" />
+                        <input type="url" placeholder="Icon URL" value={itemIcon} onChange={(e) => setItemIcon(e.target.value)} className="p-2 border rounded text-black" />
+                        <button type="button" onClick={addItem} className="bg-green-500 text-white p-2 rounded hover:bg-green-600">Add</button>
+                    </div>
+
+                    <p><strong>Skills:</strong></p>
+                    <ul>
+                        {formData.items.map((item, index) => (
+                            <li key={index} className="flex items-center justify-between">
+                                {item.title} <img src={item.icon} alt={item.title} className="w-6 h-6 ml-2" />
+                                <button type="button" onClick={() => deleteItem(index)} className="text-red-500">X</button>
+                            </li>
+                        ))}
+                    </ul>
+                    
+                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                        {editingId ? "Update Skill" : "Add Skill"}
+                    </button>
+                </form>
+
+                <div className="mt-6">
+                    <h2 className="text-xl font-bold">Skills</h2>
+                    {skills.length === 0 ? (
+                        <p>No skills added yet.</p>
+                    ) : (
+                        skills.map((skill) => (
+                            <div key={skill._id} className="bg-gray-700 border p-4 rounded mt-2">
+                                <h3 className="font-semibold">{skill.title}</h3>
+                                <ul>
+                                    {skill.items.map((item, idx) => (
+                                        <li key={idx} className="flex items-center">
+                                            {item.title} <img src={item.icon} alt={item.title} className="w-6 h-6 ml-2" />
+                                        </li>
+                                    ))}
+                                </ul>
+                                <button onClick={() => handleEdit(skill)} className="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
+                                <button onClick={() => {handleDelete(skill._id) 
+                                  console.log(skill._id); }
+                                } className="bg-red-500 text-white px-2 py-1 rounded ml-2">Delete</button>
+                            </div>
+                        ))
+                    )}
+                </div>
+            </div>
+        </div>
     );
-  };
-
-  const handleSaveToDB = async () => {
-    try {
-      const response = await fetch("/api/skill/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(categories),
-      });
-      if (!response.ok) throw new Error("Failed to save skills");
-      alert("Skills saved successfully!");
-    } catch (error) {
-      setError("Failed to save skills");
-    }
-  };
-
-  return (
-    <div className="flex flex-col bg-gray-900 text-white p-8 justify-center items-center min-h-screen">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg">
-        <h3 className="text-2xl font-bold mb-4 text-center">Add Skills</h3>
-
-        <input
-          type="text"
-          placeholder="Category Title"
-          value={categoryTitle}
-          onChange={(e) => setCategoryTitle(e.target.value)}
-          className="p-2 border rounded w-full mb-4 text-black"
-          required
-        />
-
-        <div className="flex gap-4">
-          <input
-            type="text"
-            placeholder="Skill Title"
-            value={skillTitle}
-            onChange={(e) => setSkillTitle(e.target.value)}
-            className="p-2 border rounded w-full text-black"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Icon URL"
-            value={icon}
-            onChange={(e) => setIcon(e.target.value)}
-            className="p-2 border rounded w-full text-black"
-            required
-          />
-          <button
-            onClick={handleAddSkill}
-            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-          >
-            Add
-          </button>
-        </div>
-
-        <div className="mt-6">
-          <h2 className="text-xl font-bold">Skills List</h2>
-          {categories.length === 0 ? (
-            <p className="text-gray-400">No skills added yet.</p>
-          ) : (
-            categories.map((category, catIndex) => (
-              <div key={catIndex} className="mt-4">
-                <h3 className="text-lg font-semibold">{category.title}</h3>
-                <ul>
-                  {category.items.map((skill, skillIndex) => (
-                    <li
-                      key={skillIndex}
-                      className="flex justify-between items-center bg-gray-700 p-3 rounded my-2"
-                    >
-                      <div className="flex items-center gap-3">
-                        <img src={skill.icon} alt={skill.title} className="w-8 h-8" />
-                        <span>{skill.title}</span>
-                      </div>
-                      <button
-                        className="text-red-400 hover:text-red-500"
-                        onClick={() => handleDeleteSkill(catIndex, skillIndex)}
-                      >
-                        Delete
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))
-          )}
-        </div>
-
-        <button
-          onClick={handleSaveToDB}
-          className="mt-4 bg-green-500 text-white p-2 w-full rounded hover:bg-green-600"
-        >
-          Save Skills
-        </button>
-      </div>
-      {error && <p className="text-red-400 text-lg text-center mt-4">{error}</p>}
-    </div>
-  );
 }

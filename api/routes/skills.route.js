@@ -10,8 +10,8 @@ import {
 const router = express.Router();
 
 router.post('/skill/create',  createSkill);
-router.put('/editSkill/:skillId', editSkills);
-router.delete('/deleteSkill/:skillId', deleteSkills);
+router.put('/editSkill/:id', editSkills);
+router.delete('/deleteSkill/:id', deleteSkills);
 router.get('/getSkills', getSkills);
 
 export default router ;

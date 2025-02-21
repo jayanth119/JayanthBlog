@@ -63,12 +63,13 @@ const Skills = () => {
       const [data, setData] = useState(null);
       
       useEffect(() => {
-        // fetch("/api/skills")
-        //   .then((res) => res.json())
-        //   .then((res) => setData(res))
-        //   .catch(() => setData(defaultSkills));
-        // // Use default data on failure
-        setData(defaultSkills); 
+        fetch("/api/getSkills")
+          .then((res) => res.json())
+          .then((res) => setData(res)
+        )
+          .catch(() => setData(null));
+        // Use default data on failure
+        // setData(); 
       }, []);
       
 
@@ -80,10 +81,11 @@ const Skills = () => {
         {data ? (
           <div>
             <h4 className="text-lg mb-4">
-              <ReactMarkdown>{data.intro}</ReactMarkdown>
+              <ReactMarkdown>Here are some of the technologies and tools I work with:</ReactMarkdown>
             </h4>
 
-            {data.skills?.map((category) => (
+
+            {data ?.map((category) => (
               <div key={category.title} className="mb-8">
                 <h3 className="text-2xl font-semibold mb-4">{category.title}</h3>
                 <div className="flex flex-wrap justify-center gap-6">

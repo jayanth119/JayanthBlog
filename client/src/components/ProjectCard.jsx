@@ -9,30 +9,38 @@ const ProjectCard = ({ project }) => {
         <img src={project.image} alt={project.title} className="rounded-lg mb-4 w-full h-40 object-cover" />
       )}
 
-      {/* Project Title */}
+      
       <h3 className="text-2xl font-bold text-gray-100">{project.title}</h3>
 
-      {/* Project Description */}
-      <div className="text-gray-400 text-sm mt-2">
+      {/* Project Description with scroll option */}
+      <div className="text-gray-400 text-sm mt-2 max-h-40 overflow-y-auto">
         <ReactMarkdown>{project.bodyText}</ReactMarkdown>
       </div>
 
       {/* Buttons (Links) */}
-      {project.links && (
-        <div className="flex flex-wrap gap-2 mt-4">
-          {project.links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-blue-500 text-blue-400 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition"
-            >
-              {link.text}
-            </a>
-          ))}
+      
+      { project.github && project.demo && ( 
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button
+            onClick={() => window.open(project.github, "_blank")}
+            className="bg-gray-700 text-gray-300 px-3 py-1 rounded-lg text-xs"
+          >
+            GitHub
+          </button>
+          <button
+            onClick={() => window.open(project.demo, "_blank")}
+            className="bg-gray-700 text-gray-300 px-3 py-1 rounded-lg text-xs"
+          >
+            Live Demo
+          </button>
+
         </div>
       )}
+      <div className="mt-4 flex flex-wrap gap-2"> 
+      </div>
+      
+
+
 
       {/* Tags */}
       {project.tags && (

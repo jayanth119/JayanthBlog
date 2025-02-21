@@ -112,7 +112,7 @@ export default function AddProjects() {
                         <p>No projects added yet.</p>
                     ) : (
                         projects.map((project) => (
-                            <div key={project._id} className="border p-4 rounded mt-2 flex justify-between items-center">
+                            <div key={project._id} className=" bg-gray-700 border p-4 rounded mt-2 flex justify-between items-center">
                                 <div>
                                     {/* Display Image if Available */}
                                     {project.image && (

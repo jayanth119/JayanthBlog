@@ -30,14 +30,19 @@ const projectSchema = new mongoose.Schema({
             type: String,
             required: true
         },
+    
     image: {
             type: String,
             required: true
         },
-        tags : {
+    tags : {
             type : [String],
             
-        }
+        },
+    demo : {
+        type : String,
+        required: true
+    }
  
 }) ; 
 
