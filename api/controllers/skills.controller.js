@@ -51,9 +51,9 @@ export const deleteSkills = async (req, res, next) => {
 }
 
 export const editSkills = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(errorHandler(403, 'You are not allowed to edit an Skills'));
-    // }
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to edit an Skills'));
+    }
     try {
         const { id } = req.params;
         const updatedSkills = await Skills.findByIdAndUpdate( new mongoose.Types.ObjectId(id), req.body, {

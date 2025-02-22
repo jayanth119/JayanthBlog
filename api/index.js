@@ -42,11 +42,11 @@ app.use('/api/', EducationRoutes);
 app.use('/api/', ExperienceRoute);
 app.use('/api/', SkillsRoute);
 app.use('/api/' , ProjectRoute)
-//  app.use(express.static(path.join(__dirname, '/client/dist')));
+ app.use(express.static(path.join(__dirname, '/client/dist')));
 
-//  app.get('*', (req, res) => {
-//    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-// });
+ app.get('*', (req, res) => {
+   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

@@ -9,9 +9,9 @@ import {
 
 const router = express.Router();
 
-router.post('/experience/create', createExperience);
-router.put('/editExperience/:experienceId', editExperience);
-router.delete('/deleteExperience/:experienceId', deleteExperience);
+router.post('/experience/create',verifyToken , createExperience);
+router.put('/editExperience/:experienceId', verifyToken ,editExperience);
+router.delete('/deleteExperience/:experienceId',verifyToken ,  deleteExperience);
 router.get('/getExperiences', getExperiences);
 
 export default router;

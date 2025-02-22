@@ -29,13 +29,13 @@ function PortfolioPage() {
       >
         <h1 className="text-5xl font-bold">Jayanth Chukka </h1>
         <div className="flex mt-6 space-x-4">
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/in/jayanth-ch-374550253/" target="_blank" rel="noopener noreferrer">
             <FaLinkedin size={30} className="hover:text-blue-500" />
           </a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/jayanth119" target="_blank" rel="noopener noreferrer">
             <FaGithub size={30} className="hover:text-gray-500" />
           </a>
-          <a href="mailto:your.email@example.com">
+          <a href="mailto:chjayanth119@gmail.com">
             <FaEnvelope size={30} className="hover:text-red-500" />
           </a>
         </div>

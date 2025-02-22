@@ -1,6 +1,6 @@
 import Experience from '../models/experience.model.js';
 import { errorHandler } from '../utils/error.js';
-
+import { sendBlogUpdateEmail } from '../utils/sentMail.js';
 // createExperience,
 // deleteExperience,
 // editExperience,
@@ -18,9 +18,9 @@ import { errorHandler } from '../utils/error.js';
 //     tags: ["TensorFlow", "PyTorch", "NLP", "Computer Vision"],
 //   }
 export const createExperience = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(errorHandler(403, 'You are not allowed to create an experience'));
-    // }
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to create an experience'));
+    }
     if (!req.body.title || !req.body.company || !req.body.date || !req.body.description || !req.body.tags) {
         return next(errorHandler(400, 'Please provide all required fields'));
     }
@@ -37,9 +37,9 @@ export const createExperience = async (req, res, next) => {
 }
 
 export const deleteExperience = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(errorHandler(403, 'You are not allowed to delete an experience'));
-    // }
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to delete an experience'));
+    }
     try {
         await Experience.findByIdAndDelete(req.params.experienceId);
         res.status(204).end();
@@ -49,9 +49,9 @@ export const deleteExperience = async (req, res, next) => {
 }
 
 export const editExperience = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(errorHandler(403, 'You are not allowed to edit an experience'));
-    // }
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to edit an experience'));
+    }
     try {
         const updatedExperience = await Experience.findByIdAndUpdate(req.params.experienceId, req.body, {
             new: true,
@@ -68,7 +68,9 @@ export const editExperience = async (req, res, next) => {
 
 export const getExperiences = async (req, res, next) => {
     try {
+        // await sendBlogUpdateEmail("" , "" , "" , "");
         const experiences = await Experience.find();
+        // await sendBlogUpdateEmail("" , "" , "" , "");
         res.status(200).json(experiences);
     } catch (error) {
         next(error);

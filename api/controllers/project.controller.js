@@ -16,9 +16,9 @@ import { errorHandler } from '../utils/error.js';
 //   }
 
 export const createProject = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(errorHandler(403, 'You are not allowed to create a project'));
-    // }
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to create a project'));
+    }
     if (!req.body.title || !req.body.bodyText || !req.body.image || !req.body.github) {
         return next(errorHandler(400, 'Please provide all required fields'));
     }
@@ -34,9 +34,9 @@ export const createProject = async (req, res, next) => {
 }
 
 export const deleteProject = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(errorHandler(403, 'You are not allowed to delete a project'));
-    // }
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to delete a project'));
+    }
     try {
         await project.findByIdAndDelete(req.params.projectId);
         res.status(204).end();
@@ -46,9 +46,9 @@ export const deleteProject = async (req, res, next) => {
 }
 
 export const editProject = async (req , res , next )=>{
-    // if(!req.user.isAdmin){
-    //     return next(errorHandler(403 , 'You are not allowed to delete a project')); 
-    // }
+    if(!req.user.isAdmin){
+        return next(errorHandler(403 , 'You are not allowed to delete a project')); 
+    }
     try{
             const updateProject = await project.findByIdAndUpdate(req.params.projectId);
             if(!updateProject){

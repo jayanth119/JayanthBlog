@@ -12,9 +12,9 @@ import { errorHandler } from '../utils/error.js';
 //     details: "CGPA - 8.2",
 //   }
 export const createEducation = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(errorHandler(403, 'You are not allowed to create an education'));
-    // }
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to create an education'));
+    }
     if (!req.body.title || !req.body.institution || !req.body.duration || !req.body.details ) {
         return next(errorHandler(400, 'Please provide all required fields'));
     }
@@ -30,9 +30,9 @@ export const createEducation = async (req, res, next) => {
     };
 
 export const deleteEducation = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(errorHandler(403, 'You are not allowed to delete an education'));
-    // }
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to delete an education'));
+    }
     try {
         await Education.findByIdAndDelete(req.params.educationId);
         res.status(204).end();
@@ -42,9 +42,9 @@ export const deleteEducation = async (req, res, next) => {
 }
 
 export const editEducation = async (req, res, next) => {
-    // if (!req.user.isAdmin) {
-    //     return next(errorHandler(403, 'You are not allowed to edit an education'));
-    // }
+    if (!req.user.isAdmin) {
+        return next(errorHandler(403, 'You are not allowed to edit an education'));
+    }
     try {
         const updatedEducation = await Education.findByIdAndUpdate(req.params.educationId, req.body, {
             new: true,
