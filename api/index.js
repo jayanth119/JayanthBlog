@@ -15,15 +15,15 @@ import path from 'path';
 import cors from 'cors';
 import cron from "node-cron";
 
-// cron.schedule("0 13 * * *", () => {
-//   console.log(`Image downloaded at 1 PM`);
-//   Aicreate()
+cron.schedule("0 13 * * *", () => {
+  console.log(`Image downloaded at 1 PM`);
+  Aicreate()
    
-// });
-cron.schedule('*/1 * * * *', () => {
-  console.log(`Task executed every minute: Image downloaded at ${new Date().toLocaleTimeString()}`);
-  Aicreate();
 });
+// cron.schedule('*/1 * * * *', () => {
+//   console.log(`Task executed every minute: Image downloaded at ${new Date().toLocaleTimeString()}`);
+//   Aicreate();
+// });
 dotenv.config();
 
 mongoose
