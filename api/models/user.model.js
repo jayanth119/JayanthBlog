@@ -5,15 +5,18 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
+      sparse: true,
       unique: true,
     },
     email: {
       type: String,
       required: true,
+      sparse: true,
       unique: true,
     },
     password: {
       type: String,
+      sparse: true,
       required: true,
     },
     profilePicture: {
@@ -23,8 +26,21 @@ const userSchema = new mongoose.Schema(
     },
     isAdmin: {
       type: Boolean,
+      sparse: true,
       default: false,
     },
+    phone: {
+      type: String,
+      unique: true,
+      sparse: true,
+      default: () => {
+        const randomNumber = Math.floor(1000000000 + Math.random() * 9000000000);
+        return randomNumber.toString();
+      },
+    },
+      
+     
+
   },
   { timestamps: true }
 );
@@ -32,3 +48,4 @@ const userSchema = new mongoose.Schema(
 const User = mongoose.model('User', userSchema);
 
 export default User;
+

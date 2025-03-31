@@ -7,7 +7,9 @@ import {
   signInSuccess,
   signInFailure,
 } from '../redux/user/userSlice';
-import OAuth from '../components/OAuth';
+// import ModelViewer from '../components/sketch3d1';
+
+// import OAuth from '../components/OAuth';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -53,9 +55,11 @@ export default function SignIn() {
           </Link>
           <p className='text-sm mt-5'>
             To create Account . You can sign in with your email and password
-            or with Google.
+            
           </p>
         </div>
+        {/* <ModelViewer scale="40" modelPath={"src/assets/robot_playground/scene.gltf"} /> */}
+        
         {/* right */}
 
         <div className='flex-1'>
@@ -92,7 +96,7 @@ export default function SignIn() {
                 'Sign In'
               )}
             </Button>
-            <OAuth />
+            {/* <OAuth /> */}
           </form>
           <div className='flex gap-2 text-sm mt-5'>
             <span>Dont Have an account?</span>
