@@ -7,7 +7,7 @@ import PostCard from "../components/PostCard";
 import Ask_Ai from "../components/askAi";
 import { useSelector } from "react-redux";
 export default function PostPage() {
-    const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -87,15 +87,21 @@ export default function PostPage() {
         className="p-3 max-w-2xl mx-auto w-full post-content"
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
-      <div className="max-w-4xl mx-auto w-full">
-      </div>
+      <div className="max-w-4xl mx-auto w-full"></div>
       <CommentSection postId={post._id} />
-      <Ask_Ai blogtitle = {postSlug} /> 
-      <p style={{ margin: 0, lineHeight: 1.5  , fontSize: "0.5rem"}} className="text-center mt-5">
-        AI can do mistakes, however it can never be perfect. You can verify their
-        work by yourself and report any issues to us.
-      </p>
-      
+      {currentUser && (
+        <>
+          <Ask_Ai blogtitle={postSlug} />
+          <p
+            style={{ margin: 0, lineHeight: 1.5, fontSize: "0.5rem" }}
+            className="text-center mt-5"
+          >
+            AI can do mistakes, however it can never be perfect. You can verify
+            their work by yourself and report any issues to us.
+          </p>
+        </>
+      )}
+
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5">Recent articles</h1>
         <div className="flex flex-wrap gap-5 mt-5 justify-center">
