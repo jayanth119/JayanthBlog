@@ -51,7 +51,8 @@ export const signin = async (req, res, next) => {
     }
     const token = jwt.sign(
       { id: validUser._id, isAdmin: validUser.isAdmin },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET ,
+      {expiresIn : "1d"}
     );
 
     const { password: pass, ...rest } = validUser._doc;
@@ -60,6 +61,9 @@ export const signin = async (req, res, next) => {
       .status(200)
       .cookie('access_token', token, {
         httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000, 
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite: 'strict'
       })
       .json(rest);
   } catch (error) {
