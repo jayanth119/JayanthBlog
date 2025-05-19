@@ -52,38 +52,43 @@ export default function Ask_Ai({blogtitle}) {
     recognitionRef.current = recog;
   };
 
-  const playMessage = async (text, resumeListening = true) => {
-    setMessages((msgs) => [...msgs, { speaker: "ai", text }]);
-    try {
-      const ttsRes = await axios.post(
-        "http://localhost:3000/api/tts",
-        { text },
-        {
-    withCredentials: true,
-    responseType: "blob",
-        }
-      );
-      const url = URL.createObjectURL(ttsRes.data);
-      const audio = new Audio(url);
-      setPhase(PHASE.SPEAKING);
-      audio.onended = () => {
-        if (resumeListening) {
-          setPhase(PHASE.LISTENING);
-          recognitionRef.current && recognitionRef.current.start();
-        } else {
-          setPhase(PHASE.IDLE);
-        }
-      };
-      audio.play();
-    } catch {
+const playMessage = async (text, resumeListening = true) => {
+  setMessages((msgs) => [...msgs, { speaker: "ai", text }]);
+  try {
+    const response = await fetch("/api/tts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ text }),
+    });
+
+    if (!response.ok) throw new Error("TTS request failed");
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    setPhase(PHASE.SPEAKING);
+    audio.onended = () => {
       if (resumeListening) {
         setPhase(PHASE.LISTENING);
         recognitionRef.current && recognitionRef.current.start();
       } else {
         setPhase(PHASE.IDLE);
       }
+    };
+    audio.play();
+  } catch (error) {
+    if (resumeListening) {
+      setPhase(PHASE.LISTENING);
+      recognitionRef.current && recognitionRef.current.start();
+    } else {
+      setPhase(PHASE.IDLE);
     }
-  };
+  }
+};
+
 
   const startSession = () => {
     if (!SpeechRecognition) {
@@ -102,26 +107,35 @@ export default function Ask_Ai({blogtitle}) {
     recognitionRef.current && recognitionRef.current.stop();
   };
 
-const handleQuery = (text) => {
-  // 1. Construct the payload: the server expects { text: string }
+const handleQuery = async (text) => {
+  // 1. Construct the payload
   const payload = {
     text: `${text} and if user mentions this that means blogtitle is ${blogtitle}`
   };
 
-  // 2. Send the POST
-  axios
-    .post("http://localhost:3000/api/complete",  payload , { withCredentials: true } )
-    .then(({ data }) => {
-      // playMessage comes from your speech‐synthesis logic
-      playMessage(data.reply);
-    })
-    .catch((err) => {
-      console.error("API call failed:", err);
-      // restart listening on error
-      setPhase(PHASE.LISTENING);
-      if (recognitionRef.current) recognitionRef.current.start();
+  try {
+    const response = await fetch("/api/complete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include", 
+      body: JSON.stringify(payload)
     });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch AI response");
+    }
+
+    const data = await response.json();
+    playMessage(data.reply);
+  } catch (err) {
+    console.error("API call failed:", err);
+    setPhase(PHASE.LISTENING);
+    if (recognitionRef.current) recognitionRef.current.start();
+  }
 };
+
 
 
   return (
