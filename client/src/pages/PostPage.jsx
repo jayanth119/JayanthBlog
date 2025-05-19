@@ -90,10 +90,11 @@ export default function PostPage() {
       <div className="max-w-4xl mx-auto w-full">
       </div>
       <CommentSection postId={post._id} />
-      {currentUser && <Ask_Ai blogtitle = {postSlug} /> && <p style={{ margin: 0, lineHeight: 1.5  , fontSize: "0.5rem"}} className="text-center mt-5">
+      <Ask_Ai blogtitle = {postSlug} /> 
+      <p style={{ margin: 0, lineHeight: 1.5  , fontSize: "0.5rem"}} className="text-center mt-5">
         AI can do mistakes, however it can never be perfect. You can verify their
         work by yourself and report any issues to us.
-      </p>}
+      </p>
       
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5">Recent articles</h1>
