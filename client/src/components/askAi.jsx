@@ -98,7 +98,7 @@ const playMessage = async (text, resumeListening = true) => {
     initRecognition();
     setMessages([]);
     playMessage(
-      "Hello! I'm Èpsilon ai assistant of Jayanth's blog. You can ask me anything about the blog and details of my admin Jayanth"
+      "Hello! I'm Èpsilon AI assistant of Jayanth's blog. You can ask me anything about the blog and details of my admin Jayanth"
     );
   };
 
