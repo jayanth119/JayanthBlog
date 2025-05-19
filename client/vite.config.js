@@ -12,9 +12,9 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      external: ['mongoose'],
-    },
-  },
+  // build: {
+  //   rollupOptions: {
+  //     external: ['mongoose'],
+  //   },
+  // },
 });
