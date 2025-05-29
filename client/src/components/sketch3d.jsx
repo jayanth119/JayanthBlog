@@ -1,21 +1,29 @@
-import ModelViewer from "./sketch3d1";
+import React, { useRef, useState, useEffect } from "react";
+import { useLoader, useFrame } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-const Basic=()=>{
-    return(
-        <div className="w-full grow bg-home-bg h-screen flex">
-            <div className="p-5 flex flex-col justify-center ml-[10%] text-lg ">
-                <p className="font-main text-5xl underline text-[#e6e6e6]">Tailor Fit</p>
-                 <p className="text-md font-bold">
-                    <span className="text-[#b16c84]">Switching </span> 
-                    <span className="text-[#B8C480]">your </span> 
-                    <span className="text-[#8d9dd3]">Style </span> 
-                    <span className="text-[#e7b299]">Story</span>
-                </p>
-            </div>
-            <div className="grow h-full flex flex-col justify-center items-center">
-                <ModelViewer scale="40" modelPath={"/3Dmodels/tailors_scissors/scene.gltf"} />
-            </div>
-        </div>
-    )
-}
-export default Basic;
+const GltfModel = ({ modelPath, scale = 40, position = [0, 0, 0],type }) => {
+  const ref = useRef();
+  const gltf = useLoader(GLTFLoader, modelPath);
+  const [hovered, hover] = useState(false);
+
+  // Subscribe this component to the render-loop, rotate the mesh every frame
+  useFrame((state, delta) => (ref.current.rotation.y += 0.003));
+
+  const model =[3,3,3,3];
+  const abc = [0.09,0.09,0.09,0.09];
+  return (
+    <>
+      <primitive
+        ref={ref}
+        object={gltf.scene}
+        position={position}
+        onPointerOver={(event) => hover(true)}
+        onPointerOut={(event) => hover(false)}
+        scale={type?model:abc}
+      />
+    </>
+  );
+};
+
+export default GltfModel;
