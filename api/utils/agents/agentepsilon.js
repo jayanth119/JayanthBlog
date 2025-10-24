@@ -60,7 +60,7 @@ Tone: informative, funny, clear, and age-friendly`
 
 // 6. LLM
 export const genAI = new ChatGoogleGenerativeAI({
-  model: "gemini-1.5-flash",
+  model: "gemini-2.5-flash",
   temperature: 0,
   maxRetries: 2,
   apiKey: process.env.GEMINI_API_KEY,

@@ -115,7 +115,7 @@ export const postsmemory = new BufferMemory({
 
 // 6. Model
 export const genAI = new ChatGoogleGenerativeAI({
-  model: "gemini-1.5-flash",
+  model: "gemini-2.5-flash",
   temperature: 0,
   maxRetries: 2,
   apiKey: process.env.GEMINI_API_KEY,
